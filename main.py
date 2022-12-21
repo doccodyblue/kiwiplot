@@ -3,6 +3,7 @@ from typing import List
 import csv
 import time
 import shlex
+import argparse
 from subprocess import Popen, PIPE
 
 lc: int = 500
@@ -11,11 +12,18 @@ s_samples: int = 5
 interval: int = 60
 
 config: str = "kiwiplot-source.csv"
-username: str = "dg7lan"
 f: List[float] = []
 server: List[str] = []
 port: List[int] = []
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--user', args='u', help='username / callsign')
+args = parser.parse_args()
+
+if args["user"]:
+    username: str = args["flip"]
+else:
+    username: str = "kiwiplot"
 
 m: int = 0
 
