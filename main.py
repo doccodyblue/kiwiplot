@@ -17,14 +17,14 @@ server: List[str] = []
 port: List[int] = []
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--user', args='u', help='username / callsign')
-args = parser.parse_args()
+parser.add_argument('-u', '--user', help='username / callsign')
+args = vars(parser.parse_args())
 
 if args["user"]:
-    username: str = args["flip"]
+    username: str = args["user"]
 else:
     username: str = "kiwiplot"
-
+print(username)
 m: int = 0
 
 with open(config) as configfile:
