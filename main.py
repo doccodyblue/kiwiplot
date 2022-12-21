@@ -24,7 +24,6 @@ if args["user"]:
     username: str = args["user"]
 else:
     username: str = "kiwiplot"
-print(username)
 m: int = 0
 
 with open(config) as configfile:
