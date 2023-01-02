@@ -30,8 +30,7 @@ m: int = 0
 with open(config) as configfile:
     csvfile = csv.reader(configfile, delimiter=',')
     for row in csvfile:
-        if float(row[0]) > 0:
-            #print(row)
+        if len(row)>0:
             f.append(float(row[0]))
             server.append(str(row[1]))
             port.append(int(row[2]))
