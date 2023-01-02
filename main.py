@@ -24,6 +24,7 @@ if args["user"]:
     username: str = args["user"]
 else:
     username: str = "kiwiplot"
+
 m: int = 0
 
 with open(config) as configfile:
@@ -38,7 +39,7 @@ with open(config) as configfile:
 
 while 1:
     for loop in range(m):
-        command = shlex.split("python3 kiwirecorder.py -k 5 -s " + server[loop] + " -p " + str(port[loop]) + " -f " + str(f[loop]) + " -m am -L -500 -H 500 --s-meter=" + str(s_samples) + " --user=" + username)
+        command = shlex.split("python3 kiwirecorder.py -k 5 -s " + server[loop] + " -p " + str(port[loop]) + " -f " + str(f[loop]) + " -m am -L -5000 -H 5000 --s-meter=" + str(s_samples) + " --user=" + username)
         process = Popen(command, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process.communicate()
         pwr = stdout.decode('UTF-8')[6:]
@@ -48,7 +49,7 @@ while 1:
             out = out.replace(".", "_")+".csv"
             with open(out, 'a') as fd:
                 fd.write(fdate+","+str(pwr))
-                print(f'-> f:{f[loop]} p:{pwr}')
+                print(f'-> f:{f[loop]} p:{pwr}', end='')
 
     time.sleep(interval)
 
