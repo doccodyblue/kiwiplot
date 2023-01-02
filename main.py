@@ -18,12 +18,21 @@ port: List[int] = []
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-u', '--user', help='username / callsign')
+parser.add_argument('-w', '--bw', help='bw in HZ')
 args = vars(parser.parse_args())
 
 if args["user"]:
     username: str = args["user"]
 else:
     username: str = "kiwiplot"
+
+if args["bw"]:
+    bw: int = int(args["bw"])
+    print("BW", bw)
+    if bw in range(1000,50000):
+        lc = bw / 2
+        hc = bw / 2
+
 
 m: int = 0
 
