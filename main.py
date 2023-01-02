@@ -6,8 +6,8 @@ import shlex
 import argparse
 from subprocess import Popen, PIPE
 
-lc: int = 500
-hc: int = 500
+lc: int = 5000
+hc: int = 5000
 s_samples: int = 5
 interval: int = 60
 
@@ -31,7 +31,7 @@ with open(config) as configfile:
     csvfile = csv.reader(configfile, delimiter=',')
     for row in csvfile:
         if float(row[0]) > 0:
-            print(row)
+            #print(row)
             f.append(float(row[0]))
             server.append(str(row[1]))
             port.append(int(row[2]))
@@ -39,7 +39,7 @@ with open(config) as configfile:
 
 while 1:
     for loop in range(m):
-        command = shlex.split("python3 kiwirecorder.py -k 5 -s " + server[loop] + " -p " + str(port[loop]) + " -f " + str(f[loop]) + " -m am -L -5000 -H 5000 --s-meter=" + str(s_samples) + " --user=" + username)
+        command = shlex.split("python3 kiwirecorder.py -k 5 -s " + server[loop] + " -p " + str(port[loop]) + " -f " + str(f[loop]) + " -m am -L -" + str(lc) + " -H " + str(hc) +" --s-meter=" + str(s_samples) + " --user=" + username)
         process = Popen(command, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process.communicate()
         pwr = stdout.decode('UTF-8')[6:]
