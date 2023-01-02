@@ -6,6 +6,7 @@ import shlex
 import argparse
 from subprocess import Popen, PIPE
 
+bw: int = 10000
 lc: int = 5000
 hc: int = 5000
 s_samples: int = 5
@@ -18,7 +19,7 @@ port: List[int] = []
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-u', '--user', help='username / callsign')
-parser.add_argument('-w', '--bw', help='bw in HZ')
+parser.add_argument('-w', '--bw', help='bw in Hz')
 args = vars(parser.parse_args())
 
 if args["user"]:
@@ -27,8 +28,7 @@ else:
     username: str = "kiwiplot"
 
 if args["bw"]:
-    bw: int = int(args["bw"])
-    print("BW", bw)
+    bw = int(args["bw"])
     if bw in range(1000,50000):
         lc = bw / 2
         hc = bw / 2
@@ -57,7 +57,7 @@ while 1:
             out = out.replace(".", "_")+".csv"
             with open(out, 'a') as fd:
                 fd.write(fdate+","+str(pwr))
-                print(f'{server[loop]:20s}-> f:{f[loop]:7} p:{pwr:6}', end='')
+                print(f'{server[loop]:20s}-> f:{f[loop]:<7}  bw: {bw:<6}  p:{pwr:<6}', end='')
 
     time.sleep(interval)
 
