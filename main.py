@@ -49,7 +49,7 @@ while 1:
             out = out.replace(".", "_")+".csv"
             with open(out, 'a') as fd:
                 fd.write(fdate+","+str(pwr))
-                print(f'-> f:{f[loop]} p:{pwr}', end='')
+                print(f'{server[loop]:20s}-> f:{f[loop]:7} p:{pwr:6}', end='')
 
     time.sleep(interval)
 
