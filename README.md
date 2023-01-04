@@ -5,7 +5,11 @@
 1. **record.py** receive power level from one or more Kiwis to multiple .csv files
 2. **plotcsv.py** plot a simple graph from the recorded .csv to show received power vs time
 
-**Usage**
+**Usage**  
+Requires:
+pandas, plotly, argparse
+
+You need to have kiwirecorder.py in the same directory (a symbolic link works fine!)
 
 Adapt a kiwiplot-source.csv from the example file.  
 Example:  
