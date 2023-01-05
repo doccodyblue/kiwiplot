@@ -6,8 +6,9 @@
 2. **plotcsv.py** plot a simple graph from the recorded .csv to show received power vs time
 
 **Usage**  
-Requires:
-pandas, plotly, argparse
+Requirements:  
+pip3 install pandas plotly
+...maybe some more
 
 You need to have kiwirecorder.py in the same directory (a symbolic link works fine!)
 
