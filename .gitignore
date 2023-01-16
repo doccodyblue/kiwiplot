@@ -1,2 +1,11 @@
 /kiwirecorder.py
 /.mypy_cache/
+/.idea/.gitignore
+/.idea/kiwiplot.iml
+/kiwiplot-source.csv
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/sweep_dg7lan.mooo.com.csv
+/.idea/vcs.xml
