@@ -1,7 +1,5 @@
 ***What it does***
 
-2 simple components to:
-
 1. **record.py** receive power level from one or more Kiwis to multiple .csv files **OR** sweep over a defined freq range
 2. **plotcsv.py** plot a simple graph from the recorded .csv to show received power vs time / received power vs frequency
 
@@ -31,6 +29,7 @@ record.py -u dg7lan_measure -w 5000 -i 20 -s 2 -b 2 -t 30000 -n no_filter_1000
 
 usage: record.py [-h] [-u USER] [-w BW] [-i INCREMENT] [-b BOTTOM] [-t TOP] [-s SSAMPLES] [-n NAME]  
 | Switch | Command | Description |
+| --- | --- | --- |
 | -h | --help | show this help message and exit |  
 | -u USER | --user USER | username / callsign |  
 | -w BW | --bw BW | bw in Hz |
