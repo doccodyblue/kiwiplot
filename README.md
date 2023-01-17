@@ -1,9 +1,9 @@
-(This is not a finished software. It was used to monitor noise levels on specific frequencies)
+***What it does***
 
 2 simple components to:
 
-1. **record.py** receive power level from one or more Kiwis to multiple .csv files
-2. **plotcsv.py** plot a simple graph from the recorded .csv to show received power vs time
+1. **record.py** receive power level from one or more Kiwis to multiple .csv files **OR** sweep over a defined freq range
+2. **plotcsv.py** plot a simple graph from the recorded .csv to show received power vs time / received power vs frequency
 
 **Usage**  
 Requirements:  
