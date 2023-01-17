@@ -12,6 +12,7 @@ hc: float = 5000
 s_samples: int = 5
 interval: int = 60
 username: str = "kiwiplot"
+measurementname: str = "undefined"
 
 config: str = "kiwiplot-source.csv"
 f: List[float] = []
@@ -29,7 +30,7 @@ parser.add_argument('-i', '--increment', help='if set, will go through a range i
 parser.add_argument('-b', '--bottom', help='if -i is set this will be the first frequency (kHz) to measure')
 parser.add_argument('-t', '--top', help='if -i is set this will be the last frequency (kHz) to measure')
 parser.add_argument('-s', '--ssamples', help='smeter samples')
-
+parser.add_argument('-n', '--name', help='name of measurement (identifier)')
 
 args = vars(parser.parse_args())
 
@@ -53,6 +54,9 @@ if args["increment"]:
         fcurrent = fbottom
     if args["top"]:
         ftop = float(args["top"])
+
+if args["name"]:
+    measurementname = args["name"]
 
 with open(config) as configfile:
     csvfile = csv.reader(configfile, delimiter=',')
@@ -86,7 +90,7 @@ else:
     # measure a full spectrum
     print("starting sweep mode")
     # start date
-    sdate = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+    #sdate = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
     while fcurrent < ftop:
         command = shlex.split("python3 kiwirecorder.py -k 5 -s " + server[0] + " -p " + str(port[0]) + " -f " + str(
                 fcurrent) + " -m am -L -" + str(lc) + " -H " + str(hc) + " --s-meter=" + str(
@@ -99,7 +103,7 @@ else:
         if len(pwr):
             out = "sweep_" + server[0] + ".csv"
             with open(out, 'a') as fd:
-                fd.write(fdate + "," + str(fcurrent) + "," + str(pwr) + "," + sdate + "\n")
+                fd.write(fdate + "," + str(fcurrent) + "," + str(pwr) + "," + measurementname + "\n")
                 print(f'{server[0]:20s}-> f:{fcurrent:<7}  bw: {bw:<6}  p:{pwr:<6}')
 
         fcurrent += increment
