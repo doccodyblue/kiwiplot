@@ -20,11 +20,22 @@ Example to measure single frequencies over time:
 
 For sweep measurements only the first entry line is used.  
 
-Start record.py (record.py [-u username])
+**Example** for single frequency measurements:  
+record.py (record.py [-u username])
+This takes all entries from the csv and measures periodically
 
-When finished, use plotcsv.py -i filename.csv
+When finished, press CTRL-C to stop then use plotcsv.py -i filename.csv
 
 <img width="935" alt="image" src="https://user-images.githubusercontent.com/20392230/210586769-3ecf6de4-95b7-42f3-8327-88d8e7eb2864.png">
+
+
+**Example** to sweep over a frequency range (2kHz to 30MHz) with a bandwidth of 5kHz, averaging over 2 s-meter samples and the name "no_filter_1000":  
+record.py -u dg7lan_measure -w 5000 -i 20 -s 2 -b 2 -t 30000 -n no_filter_1000
+
+The result is a csv file that can be plotted with plotcsv.py:  
+![img.png](img.png)
+
+The csv can hold multiple measurements that will be overlayed and can be turned on or off in the browser.  
 
 
 usage: record.py [-h] [-u USER] [-w BW] [-i INCREMENT] [-b BOTTOM] [-t TOP] [-s SSAMPLES] [-n NAME]  
@@ -38,13 +49,4 @@ usage: record.py [-h] [-u USER] [-w BW] [-i INCREMENT] [-b BOTTOM] [-t TOP] [-s 
 | -t TOP | --top TOP | if -t is set this will be the last frequency (kHz) to measure |  
 | -s SSAMPLES | --ssamples SSAMPLES |smeter samples |
 | -n NAME | --name NAME | name of measurement (identifier) |
-
-Example to sweep over a frequency range (2kHz to 30MHz) with a bandwidth of 5kHz, averaging over 2 s-meter samples and the name "no_filter_1000":  
-record.py -u dg7lan_measure -w 5000 -i 20 -s 2 -b 2 -t 30000 -n no_filter_1000
-
-The result is a csv file that can be plotted with plotcsv.py:  
-![img.png](img.png)
-
-The csv can hold multiple measurements that will be overlayed and can be turned on or off in the browser.  
-
 
