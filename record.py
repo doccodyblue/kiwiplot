@@ -113,7 +113,7 @@ else:
 
         fcurrent += increment
 
-    print(f'Results stored in {csvfile}')
+    print(f'Results stored in {out}')
 
 
 
