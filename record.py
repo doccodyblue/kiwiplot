@@ -113,7 +113,7 @@ else:
 
         fcurrent += increment
 
-    print(f'Results stored in {out}')
+    print(f'Finished! Now run plotcsv.py -s -i {out} to visualize your data')
 
 
 
