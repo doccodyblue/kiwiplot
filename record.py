@@ -11,6 +11,7 @@ lc: float = 5000
 hc: float = 5000
 s_samples: int = 5
 interval: int = 60
+increment: int = 0
 username: str = "kiwiplot"
 measurementname: str = "undefined"
 
@@ -31,6 +32,7 @@ parser.add_argument('-b', '--bottom', help='if -i is set this will be the first 
 parser.add_argument('-t', '--top', help='if -i is set this will be the last frequency (kHz) to measure')
 parser.add_argument('-s', '--ssamples', help='smeter samples')
 parser.add_argument('-n', '--name', help='name of measurement (identifier)')
+parser.add_argument('-d', '--delay', help='wait n seconds between measurements')
 
 args = vars(parser.parse_args())
 
@@ -46,14 +48,18 @@ if args["bw"]:
 if args["ssamples"]:
     s_samples = int(args["ssamples"])
 
+
 if args["increment"]:
     increment = int(args["increment"])
-
+    interval = 0  # default delay for sweep should be 0
     if args["bottom"]:
         fbottom = float(args["bottom"])
         fcurrent = fbottom
     if args["top"]:
         ftop = float(args["top"])
+
+if args["delay"]:
+    interval = int(args["delay"])
 
 if args["name"]:
     measurementname = args["name"]
@@ -67,7 +73,7 @@ with open(config) as configfile:
             port.append(int(row[2]))
             m += 1
 
-if not increment:
+if increment == 0:
     # measure a single frequency like defined in kiwiplot-source.csv
     print("starting single frequency measurement loop")
     while 1:
@@ -88,9 +94,8 @@ if not increment:
 
 else:
     # measure a full spectrum
-    print("starting sweep mode")
+    print("starting sweep mode..")
     # start date
-    #sdate = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
     while fcurrent < ftop:
         command = shlex.split("python3 kiwirecorder.py -k 5 -s " + server[0] + " -p " + str(port[0]) + " -f " + str(
                 fcurrent) + " -m am -L -" + str(lc) + " -H " + str(hc) + " --s-meter=" + str(
@@ -108,7 +113,8 @@ else:
 
         fcurrent += increment
 
-    print(f'fcurrent: {fcurrent} ftop: {ftop}')
+    print(f'Results stored in {csvfile}')
+
 
 
 

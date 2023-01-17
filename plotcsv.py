@@ -1,42 +1,49 @@
 import pandas as pd
-#import plotly.express as px
 import plotly.graph_objects as go
-
 import argparse
 
 sweepmode: bool = False
-
+debug: bool = False
+filename: str = ""
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-i', '--input', help='csv datafile')
+parser.add_argument('-i', '--input', help='csv datafile (may contain multiple measurements)')
 parser.add_argument('-s', '--sweep', action='store_true', help='file was recorded in sweep mode')
+parser.add_argument('-v', '--verbose', action='store_true', help='verbose mode')
 args = vars(parser.parse_args())
 
 if args['sweep']:
     sweepmode = True
 
+if args['verbose']:
+    debug = True
+
 if args['input']:
-    csvfile: str = args["input"]
+    filename = args["input"]
 else:
     print("please specify input file name with -i")
     exit(1)
 
-df = pd.read_csv(csvfile+"_1.csv")
-df1 = pd.read_csv(csvfile+"_2.csv")
+
+fig = go.Figure()
+
+# read csv into dataframe
+df = pd.read_csv(filename)
 
 if sweepmode:
     df.columns = ["time", "freq", "power", "pass"]
-    df1.columns = ["time", "freq", "power", "pass"]
 
-    trace1 = go.Scatter(x=df['freq'], y=df['power'], mode='lines', name='Line 1')
-    trace2 = go.Scatter(x=df1['freq'], y=df1['power'], mode='lines', name='Line 2')
+    # find unique measurement names in csv
+    measurements = set(df['pass'])
+    if debug: print(measurements)
 
-    #fig = make_subplots(rows=1, cols=2)
-    #fig = add_trace(go.scatter(df, x = 'freq', y = 'power', title='dbm @ freq'))
-    #
-    #fig2 = add_trace(go.scatter(df, x = 'freq', y = 'power', title='dbm @ freq pass 2'))
-    fig = go.Figure(data=[trace1, trace2])
+    for i in measurements:
+        df_result = df[df['pass'] == i]
+        fig.add_trace(go.Scatter(x=df_result['freq'], y=df_result['power'], mode='lines', name=i))
+
 else:
+    # no sweepmode
     df.columns = ["time", "power"]
-    fig = go.scatter(df, x = 'time', y = 'power', title='dbm over time')
+    fig.add_trace(go.Scatter(x = df['time'], y = df['power'], mode='lines', name='dbm over time'))
+
 fig.show()
