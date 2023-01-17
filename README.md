@@ -48,4 +48,8 @@ usage: record.py [-h] [-u USER] [-w BW] [-i INCREMENT] [-b BOTTOM] [-t TOP] [-s 
 | -t TOP | --top TOP | if -t is set this will be the last frequency (kHz) to measure |  
 | -s SSAMPLES | --ssamples SSAMPLES |smeter samples |
 | -n NAME | --name NAME | name of measurement (identifier) |
+| -d SECONDS | --delay SECONDS  |  wait n seconds between measurements (usually set to 0 for sweep mode) |
+
+
+
 
